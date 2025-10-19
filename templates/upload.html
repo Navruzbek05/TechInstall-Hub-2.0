@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка файлов - TechInstall Hub</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="background-animation">
+        <div class="gradient-ball ball-1"></div>
+        <div class="gradient-ball ball-2"></div>
+        <div class="gradient-ball ball-3"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">TechInstall Hub</div>
+            <nav>
+                <a href="/" class="nav-link">Главная</a>
+                <a href="/instructions" class="nav-link">Инструкции</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Загрузка файлов</h1>
+            <p>Добавьте новые установочные файлы в коллекцию портала</p>
+        </section>
+
+        <div class="content-grid">
+            <!-- Карточка загрузки -->
+            <div class="card">
+                <h2>📤 Загрузить новый файл</h2>
+                <form method="post" enctype="multipart/form-data" class="upload-form" id="uploadForm">
+                    <div class="form-group">
+                        <label for="fileInput" class="file-input-label">
+                            <div class="file-input-area" id="fileInputArea">
+                                <div class="file-input-icon">📁</div>
+                                <div class="file-input-text">
+                                    <div class="file-input-title">Выберите файл для загрузки</div>
+                                    <div class="file-input-subtitle">Перетащите файл сюда или нажмите для выбора</div>
+                                </div>
+                                <input type="file" name="file" id="fileInput" class="file-input-hidden" required>
+                            </div>
+                        </label>
+                        <div class="file-preview" id="filePreview"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fileName" class="form-label">Название файла (опционально)</label>
+                        <input type="text" id="fileName" name="file_name" class="form-input" 
+                               placeholder="Например: Naumen_Client_v2.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fileDescription" class="form-label">Описание</label>
+                        <textarea id="fileDescription" name="file_description" class="form-textarea" 
+                                  placeholder="Краткое описание файла, версия, системные требования..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">🚀 Загрузить файл</span>
+                        <span class="btn-loading" style="display: none;">
+                            <span class="loading"></span> Загрузка...
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Карточка информации -->
+            <div class="card">
+                <h2>ℹ️ Информация о загрузке</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon">✅</div>
+                        <div class="info-content">
+                            <strong>Поддерживаемые форматы</strong>
+                            <p>EXE, MSI, ZIP, RAR, DMG, PKG</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📏</div>
+                        <div class="info-content">
+                            <strong>Максимальный размер</strong>
+                            <p>До 100 MB на файл</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">🛡️</div>
+                        <div class="info-content">
+                            <strong>Безопасность</strong>
+                            <p>Все файлы проверяются антивирусом</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">⚡</div>
+                        <div class="info-content">
+                            <strong>Быстрая обработка</strong>
+                            <p>Файлы становятся доступными сразу после загрузки</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Недавно загруженные файлы -->
+        <div class="card" style="margin-top: 2rem;">
+            <h2>📋 Недавно загруженные файлы</h2>
+            <div class="recent-files">
+                {% if files %}
+                <div class="file-grid">
+                    {% for file in files[-5:] %}  <!-- Последние 5 файлов -->
+                    <div class="file-card">
+                        <div class="file-card-icon">📄</div>
+                        <div class="file-card-info">
+                            <div class="file-card-name">{{ file }}</div>
+                            <div class="file-card-date">Загружен сегодня</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">📭</div>
+                    <h3>Файлы ещё не загружены</h3>
+                    <p>Будьте первым, кто добавит файл в коллекцию</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 TechInstall Hub | Современный портал для IT-специалистов</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // JavaScript для улучшенного интерфейса загрузки
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('fileInput');
+            const fileInputArea = document.getElementById('fileInputArea');
+            const filePreview = document.getElementById('filePreview');
+            const uploadForm = document.getElementById('uploadForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+
+            // Обработка drag and drop
+            fileInputArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.background = 'rgba(37, 99, 235, 0.1)';
+                this.style.borderColor = '#2563eb';
+            });
+
+            fileInputArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.style.background = '';
+                this.style.borderColor = '';
+            });
+
+            fileInputArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.background = '';
+                this.style.borderColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect(e.dataTransfer.files[0]);
+                }
+            });
+
+            // Обработка выбора файла
+            fileInput.addEventListener('change', function(e) {
+                if (this.files.length) {
+                    handleFileSelect(this.files[0]);
+                }
+            });
+
+            function handleFileSelect(file) {
+                const fileName = file.name;
+                const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+                const fileType = fileName.split('.').pop().toUpperCase();
+
+                filePreview.innerHTML = `
+                    <div class="file-preview-card">
+                        <div class="file-preview-icon">📄</div>
+                        <div class="file-preview-info">
+                            <div class="file-preview-name">${fileName}</div>
+                            <div class="file-preview-details">
+                                <span class="file-type">${fileType}</span>
+                                <span class="file-size">${fileSize} MB</span>
+                            </div>
+                        </div>
+                        <button type="button" class="file-remove" onclick="clearFile()">×</button>
+                    </div>
+                `;
+
+                // Автозаполнение названия файла
+                const fileNameInput = document.getElementById('fileName');
+                if (!fileNameInput.value) {
+                    const nameWithoutExt = fileName.replace(/\.[^/.]+$/, "");
+                    fileNameInput.value = nameWithoutExt;
+                }
+            }
+
+            // Глобальная функция для удаления файла
+            window.clearFile = function() {
+                fileInput.value = '';
+                filePreview.innerHTML = '';
+            };
+
+            // Обработка отправки формы
+            uploadForm.addEventListener('submit', function(e) {
+                btnText.style.display = 'none';
+                btnLoading.style.display = 'inline-block';
+                submitBtn.disabled = true;
+                
+                // Симуляция загрузки (в реальном приложении это будет настоящий AJAX)
+                setTimeout(() => {
+                    showNotification('Файл успешно загружен!', 'success');
+                }, 1500);
+            });
+        });
+
+        function showNotification(message, type) {
+            // Ваша существующая функция показа уведомлений
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                z-index: 1000;
+                animation: slideInRight 0.5s ease-out;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.5s ease-out reverse';
+                setTimeout(() => notification.remove(), 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

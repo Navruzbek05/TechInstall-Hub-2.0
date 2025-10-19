@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechInstall Hub</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="alternate icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="background-animation">
+        <div class="gradient-ball ball-1"></div>
+        <div class="gradient-ball ball-2"></div>
+        <div class="gradient-ball ball-3"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <!-- Вариант 1: Простой белый текст -->
+            <div class="logo">TechInstall Hub</div>
+            
+            <!-- Вариант 2: С иконкой (раскомментируйте если нужно) -->
+            <!--
+            <a href="/" class="logo-with-icon">
+                <span class="logo-icon">⚡</span>
+                TechInstall Hub
+            </a>
+            -->
+            
+            <nav>
+                <a href="/" class="nav-link">Главная</a>
+                <a href="/upload" class="nav-link">Загрузить</a>
+                <a href="/instructions" class="nav-link">Инструкции</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>TechInstall Hub</h1>
+            <p>Центр установочных файлов и инструкций для ваших IT-проектов</p>
+        </section>
+
+        <!-- остальной контент без изменений -->
+        <div class="content-grid">
+            <div class="card">
+                <h2>📦 Доступные файлы</h2>
+                <ul class="file-list">
+                    {% for file in files %}
+                    <li class="file-item">
+                        <div class="file-icon">ZIP</div>
+                        <div class="file-info">
+                            <div class="file-name">{{ file }}</div>
+                            <div class="file-size">~2.4 MB</div>
+                        </div>
+                        <a href="{{ url_for('static', filename='uploads/' + file) }}" download class="download-btn">
+                            Скачать
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="file-item">
+                        <div class="file-info">
+                            <div class="file-name">Нет загруженных файлов</div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🚀 Быстрый доступ</h2>
+                <div class="quick-links">
+                    <a href="/upload" class="download-btn" style="display: block; text-align: center; margin: 1rem 0;">
+                        📤 Загрузить новый файл
+                    </a>
+                    <a href="/instructions" class="download-btn" style="display: block; text-align: center; margin: 1rem 0; background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                        📚 Смотреть инструкции
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 TechInstall Hub | Современный портал для IT-специалистов</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

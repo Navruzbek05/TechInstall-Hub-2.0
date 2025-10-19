@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкции - TechInstall Hub</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="alternate icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="gradient-ball ball-1"></div>
+        <div class="gradient-ball ball-2"></div>
+        <div class="gradient-ball ball-3"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">TechInstall Hub</div>
+            <nav>
+                <a href="/" class="nav-link">Главная</a>
+                <a href="/upload" class="nav-link">Загрузить</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Инструкции по установке</h1>
+            <p>Подробные руководства для успешной настройки ПО</p>
+        </section>
+
+        <div class="instruction-section">
+            <h2>🔧 Naumen + OpenVPN</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <strong>Скачайте установщики</strong>
+                    <p>Перейдите на главную страницу и скачайте необходимые файлы: OpenVPN Client и Naumen Client</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <strong>Установите OpenVPN</strong>
+                    <p>Запустите установщик OpenVPN и следуйте инструкциям мастера установки</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <strong>Настройте подключение</strong>
+                    <p>Импортируйте конфигурационные файлы VPN и установите соединение</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong>Установите Naumen Client</strong>
+                    <p>После успешного VPN-подключения установите Naumen Client</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="instruction-section">
+            <h2>📞 Oktel + Outline</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <strong>Установите Outline VPN</strong>
+                    <p>Скачайте и установите Outline VPN с официального сайта или нашего портала</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <strong>Настройте VPN</strong>
+                    <p>Добавьте конфигурацию сервера и активируйте VPN-подключение</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <strong>Установите Oktel Client</strong>
+                    <p>Запустите установку Oktel Client и следуйте инструкциям</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <strong>Проверьте соединение</strong>
+                    <p>Убедитесь, что VoIP-трафик проходит через VPN-подключение</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 TechInstall Hub | Современный портал для IT-специалистов</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
